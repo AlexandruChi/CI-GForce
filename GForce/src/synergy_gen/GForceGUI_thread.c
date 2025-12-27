@@ -7,25 +7,6 @@ static void GForceGUI_thread_func(ULONG thread_input);
 static uint8_t GForceGUI_thread_stack[2048] BSP_PLACE_IN_SECTION_V2(".stack.GForceGUI_thread") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
 void tx_startup_err_callback(void *p_instance, void *p_data);
 void tx_startup_common_init(void);
-#if (12) != BSP_IRQ_DISABLED
-#if !defined(SSP_SUPPRESS_ISR_g_external_irq11) && !defined(SSP_SUPPRESS_ISR_ICU11)
-SSP_VECTOR_DEFINE( icu_irq_isr, ICU, IRQ11);
-#endif
-#endif
-static icu_instance_ctrl_t g_external_irq11_ctrl;
-static const external_irq_cfg_t g_external_irq11_cfg =
-{ .channel = 11,
-  .trigger = EXTERNAL_IRQ_TRIG_FALLING,
-  .filter_enable = true,
-  .pclk_div = EXTERNAL_IRQ_PCLK_DIV_BY_32,
-  .autostart = true,
-  .p_callback = external_irq11_callback,
-  .p_context = &g_external_irq11,
-  .p_extend = NULL,
-  .irq_ipl = (12), };
-/* Instance structure to use this module. */
-const external_irq_instance_t g_external_irq11 =
-{ .p_ctrl = &g_external_irq11_ctrl, .p_cfg = &g_external_irq11_cfg, .p_api = &g_external_irq_on_icu };
 #if !defined(SSP_SUPPRESS_ISR_g_spi_lcdc) && !defined(SSP_SUPPRESS_ISR_SCI0)
 SSP_VECTOR_DEFINE_CHAN(sci_spi_rxi_isr, SCI, RXI, 0);
 #endif
@@ -192,8 +173,7 @@ void sf_touch_panel_v2_init(void)
     }
 }
 TX_SEMAPHORE g_display_semaphore_lcdc;
-TX_EVENT_FLAGS_GROUP g_touch_event_flags;
-TX_SEMAPHORE g_sw4_semaphore;
+TX_SEMAPHORE g_tap_semaphore;
 extern bool g_ssp_common_initialized;
 extern uint32_t g_ssp_common_thread_count;
 extern TX_SEMAPHORE g_ssp_common_initialized_semaphore;
@@ -210,17 +190,11 @@ void GForceGUI_thread_create(void)
     {
         tx_startup_err_callback (&g_display_semaphore_lcdc, 0);
     }
-    UINT err_g_touch_event_flags;
-    err_g_touch_event_flags = tx_event_flags_create (&g_touch_event_flags, (CHAR*) "New Event Flags");
-    if (TX_SUCCESS != err_g_touch_event_flags)
+    UINT err_g_tap_semaphore;
+    err_g_tap_semaphore = tx_semaphore_create (&g_tap_semaphore, (CHAR*) "Tap Semaphore", 0);
+    if (TX_SUCCESS != err_g_tap_semaphore)
     {
-        tx_startup_err_callback (&g_touch_event_flags, 0);
-    }
-    UINT err_g_sw4_semaphore;
-    err_g_sw4_semaphore = tx_semaphore_create (&g_sw4_semaphore, (CHAR*) "SW4 Semaphore", 0);
-    if (TX_SUCCESS != err_g_sw4_semaphore)
-    {
-        tx_startup_err_callback (&g_sw4_semaphore, 0);
+        tx_startup_err_callback (&g_tap_semaphore, 0);
     }
 
     UINT err;

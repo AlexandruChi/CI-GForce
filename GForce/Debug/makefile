@@ -35,6 +35,7 @@ RM := rm -rf
 -include src/synergy_gen/subdir.mk
 -include src/hardware/subdir.mk
 -include src/gui/subdir.mk
+-include src/GForceGUI/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk

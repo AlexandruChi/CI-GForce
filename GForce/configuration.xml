@@ -1056,16 +1056,6 @@
       <property id="module.driver.spi.tei_ipl" value="board.icu.common.irq.priority3"/>
       <property id="module.driver.spi.eri_ipl" value="board.icu.common.irq.priority3"/>
     </module>
-    <module id="module.driver.external_irq_on_icu.1218155767">
-      <property id="module.driver.external_irq.name" value="g_external_irq11"/>
-      <property id="module.driver.external_irq.channel" value="11"/>
-      <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_falling"/>
-      <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.true"/>
-      <property id="module.driver.external_irq.pclk_div" value="module.driver.external_irq.pclk_div.pclk_div_by_32"/>
-      <property id="module.driver.external_irq.interrupt_enable" value="module.driver.external_irq.interrupt_enable.true"/>
-      <property id="module.driver.external_irq.p_callback" value="external_irq11_callback"/>
-      <property id="module.driver.external_irq.irq_ipl" value="board.icu.common.irq.priority12"/>
-    </module>
     <context id="_hal.0">
       <stack module="module.driver.elc_on_elc.0"/>
       <stack module="module.driver.fmi_on_fmi.0"/>
@@ -1108,19 +1098,14 @@
         </stack>
       </stack>
       <stack module="module.driver.spi_on_sci_spi.1054520222"/>
-      <stack module="module.driver.external_irq_on_icu.1218155767"/>
       <object id="rtos.threadx.object.semaphore.447783724">
         <property id="rtos.threadx.object.semaphore.name" value="Display Semaphore"/>
         <property id="rtos.threadx.object.semaphore.symbol" value="g_display_semaphore_lcdc"/>
         <property id="rtos.threadx.object.semaphore.count" value="0"/>
       </object>
-      <object id="rtos.threadx.object.flags.1093342765">
-        <property id="rtos.threadx.object.flags.name" value="New Event Flags"/>
-        <property id="rtos.threadx.object.flags.symbol" value="g_touch_event_flags"/>
-      </object>
       <object id="rtos.threadx.object.semaphore.1062382162">
-        <property id="rtos.threadx.object.semaphore.name" value="SW4 Semaphore"/>
-        <property id="rtos.threadx.object.semaphore.symbol" value="g_sw4_semaphore"/>
+        <property id="rtos.threadx.object.semaphore.name" value="Tap Semaphore"/>
+        <property id="rtos.threadx.object.semaphore.symbol" value="g_tap_semaphore"/>
         <property id="rtos.threadx.object.semaphore.count" value="0"/>
       </object>
     </context>

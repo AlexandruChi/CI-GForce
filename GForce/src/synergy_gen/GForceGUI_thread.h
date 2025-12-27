@@ -9,10 +9,10 @@
                 #else
 extern void GForceGUI_thread_entry(void);
 #endif
-#include "r_icu.h"
-#include "r_external_irq_api.h"
 #include "r_sci_spi.h"
 #include "r_spi_api.h"
+#include "r_icu.h"
+#include "r_external_irq_api.h"
 #include "sf_external_irq.h"
 #include "sf_i2c.h"
 #include "sf_i2c_api.h"
@@ -21,11 +21,6 @@ extern void GForceGUI_thread_entry(void);
 #include "sf_touch_panel_v2_api.h"
 #ifdef __cplusplus
 extern "C" {
-#endif
-/* External IRQ on ICU Instance. */
-extern const external_irq_instance_t g_external_irq11;
-#ifndef external_irq11_callback
-void external_irq11_callback(external_irq_callback_args_t *p_args);
 #endif
 extern const spi_cfg_t g_spi_lcdc_cfg;
 /** SPI on SCI Instance. */
@@ -70,8 +65,7 @@ void touch_panel_v2_callback(sf_touchpanel_v2_callback_args_t *p_args);
 #endif			
 void sf_touch_panel_v2_init(void);
 extern TX_SEMAPHORE g_display_semaphore_lcdc;
-extern TX_EVENT_FLAGS_GROUP g_touch_event_flags;
-extern TX_SEMAPHORE g_sw4_semaphore;
+extern TX_SEMAPHORE g_tap_semaphore;
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

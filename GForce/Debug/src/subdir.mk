@@ -4,17 +4,14 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/GForceGUI_event_handlers.c \
 ../src/GForceGUI_thread_entry.c \
 ../src/hal_entry.c 
 
 C_DEPS += \
-./src/GForceGUI_event_handlers.d \
 ./src/GForceGUI_thread_entry.d \
 ./src/hal_entry.d 
 
 OBJS += \
-./src/GForceGUI_event_handlers.o \
 ./src/GForceGUI_thread_entry.o \
 ./src/hal_entry.o 
 

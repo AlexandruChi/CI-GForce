@@ -6,7 +6,7 @@
 /*  Studio User Guide, or visit our web site at azure.com/rtos                 */
 /*                                                                             */
 /*  GUIX Studio Revision 6.4.0.0                                               */
-/*  Date (dd.mm.yyyy): 26.12.2025   Time (hh:mm): 17:56                        */
+/*  Date (dd.mm.yyyy): 27.12.2025   Time (hh:mm): 20:05                        */
 /*******************************************************************************/
 
 
@@ -14,6 +14,10 @@
 #define _GFORCEGUI_DISPLAY_1_RESOURCES_H_
 
 #include "gx_api.h"
+
+#if !defined(GX_UTF8_SUPPORT)
+#error "The symbol GX_UTF8_SUPPORT must be defined to support the Studio project settings".
+#endif
 
 /* Display and theme definitions                                               */
 
@@ -35,7 +39,8 @@
 
 /* Font ID definitions                                                         */
 
-#define DISPLAY_1_FONT_TABLE_SIZE 4
+#define GX_FONT_ID_VALUE_TOTAL 4
+#define DISPLAY_1_FONT_TABLE_SIZE 5
 
 /* Pixelmap ID definitions                                                     */
 
@@ -43,14 +48,7 @@
 
 /* String Ids                                                                  */
 
-#define GX_STRING_ID_HELLO_WORLD 1
-#define GX_STRING_ID_CHECKBOX_TEXT 2
-#define GX_STRING_ID_BUTTON_DISABLED 3
-#define GX_STRING_ID_BUTTON_ENABLED 4
-#define GX_STRING_ID_INSTRUCT_CHECKBOX 5
-#define GX_STRING_ID_WINDOW1 6
-#define GX_STRING_ID_WINDOW2 7
-#define GX_STRING_ID_INSTRUCT_BUTTON 8
-#define DISPLAY_1_STRING_TABLE_SIZE 9
+#define GX_STRING_ID_TITLE 1
+#define DISPLAY_1_STRING_TABLE_SIZE 2
 
 #endif                                       /* sentry                         */
