@@ -1,9 +1,6 @@
-
-
+#include <GForceGUI_thread.h>
 #include "gui/GForceGUI_resources.h"
 #include "gui/GForceGUI_specifications.h"
-
-#include "display_thread.h"
 
 static bool button_enabled = false;
 

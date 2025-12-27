@@ -1,12 +1,31 @@
 /* generated thread source file - do not edit */
-#include "display_thread.h"
+#include "GForceGUI_thread.h"
 
-TX_THREAD display_thread;
-void display_thread_create(void);
-static void display_thread_func(ULONG thread_input);
-static uint8_t display_thread_stack[2048] BSP_PLACE_IN_SECTION_V2(".stack.display_thread") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
+TX_THREAD GForceGUI_thread;
+void GForceGUI_thread_create(void);
+static void GForceGUI_thread_func(ULONG thread_input);
+static uint8_t GForceGUI_thread_stack[2048] BSP_PLACE_IN_SECTION_V2(".stack.GForceGUI_thread") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
 void tx_startup_err_callback(void *p_instance, void *p_data);
 void tx_startup_common_init(void);
+#if (12) != BSP_IRQ_DISABLED
+#if !defined(SSP_SUPPRESS_ISR_g_external_irq11) && !defined(SSP_SUPPRESS_ISR_ICU11)
+SSP_VECTOR_DEFINE( icu_irq_isr, ICU, IRQ11);
+#endif
+#endif
+static icu_instance_ctrl_t g_external_irq11_ctrl;
+static const external_irq_cfg_t g_external_irq11_cfg =
+{ .channel = 11,
+  .trigger = EXTERNAL_IRQ_TRIG_FALLING,
+  .filter_enable = true,
+  .pclk_div = EXTERNAL_IRQ_PCLK_DIV_BY_32,
+  .autostart = true,
+  .p_callback = external_irq11_callback,
+  .p_context = &g_external_irq11,
+  .p_extend = NULL,
+  .irq_ipl = (12), };
+/* Instance structure to use this module. */
+const external_irq_instance_t g_external_irq11 =
+{ .p_ctrl = &g_external_irq11_ctrl, .p_cfg = &g_external_irq11_cfg, .p_api = &g_external_irq_on_icu };
 #if !defined(SSP_SUPPRESS_ISR_g_spi_lcdc) && !defined(SSP_SUPPRESS_ISR_SCI0)
 SSP_VECTOR_DEFINE_CHAN(sci_spi_rxi_isr, SCI, RXI, 0);
 #endif
@@ -174,11 +193,12 @@ void sf_touch_panel_v2_init(void)
 }
 TX_SEMAPHORE g_display_semaphore_lcdc;
 TX_EVENT_FLAGS_GROUP g_touch_event_flags;
+TX_SEMAPHORE g_sw4_semaphore;
 extern bool g_ssp_common_initialized;
 extern uint32_t g_ssp_common_thread_count;
 extern TX_SEMAPHORE g_ssp_common_initialized_semaphore;
 
-void display_thread_create(void)
+void GForceGUI_thread_create(void)
 {
     /* Increment count so we will know the number of ISDE created threads. */
     g_ssp_common_thread_count++;
@@ -196,17 +216,23 @@ void display_thread_create(void)
     {
         tx_startup_err_callback (&g_touch_event_flags, 0);
     }
+    UINT err_g_sw4_semaphore;
+    err_g_sw4_semaphore = tx_semaphore_create (&g_sw4_semaphore, (CHAR*) "SW4 Semaphore", 0);
+    if (TX_SUCCESS != err_g_sw4_semaphore)
+    {
+        tx_startup_err_callback (&g_sw4_semaphore, 0);
+    }
 
     UINT err;
-    err = tx_thread_create (&display_thread, (CHAR*) "Display Thread", display_thread_func, (ULONG) NULL,
-                            &display_thread_stack, 2048, 6, 6, 10, TX_AUTO_START);
+    err = tx_thread_create (&GForceGUI_thread, (CHAR*) "GForceGUI Thread", GForceGUI_thread_func, (ULONG) NULL,
+                            &GForceGUI_thread_stack, 2048, 6, 6, 10, TX_AUTO_START);
     if (TX_SUCCESS != err)
     {
-        tx_startup_err_callback (&display_thread, 0);
+        tx_startup_err_callback (&GForceGUI_thread, 0);
     }
 }
 
-static void display_thread_func(ULONG thread_input)
+static void GForceGUI_thread_func(ULONG thread_input)
 {
     /* Not currently using thread_input. */
     SSP_PARAMETER_NOT_USED (thread_input);
@@ -221,5 +247,5 @@ static void display_thread_func(ULONG thread_input)
 #endif
 
     /* Enter user code for this thread. */
-    display_thread_entry ();
+    GForceGUI_thread_entry ();
 }
