@@ -499,9 +499,9 @@ Synergy Configuration
     Instance "g_cgc CGC Driver on r_cgc"
       Name [Fixed]: g_cgc
       
-  Thread "GForceGUI Thread"
-    Symbol: GForceGUI_thread
-    Name: GForceGUI Thread
+  Thread "Display Thread"
+    Symbol: display_thread
+    Name: Display Thread
     Stack size (bytes): 2048
     Priority: 6
     Auto start: Enabled
@@ -828,6 +828,10 @@ Synergy Configuration
       Name: Display Semaphore
       Symbol: g_display_semaphore_lcdc
       Initial count: 0
+      
+    Object "g_touch_event_flags Event Flags"
+      Name: New Event Flags
+      Symbol: g_touch_event_flags
       
     Object "g_tap_semaphore Semaphore"
       Name: Tap Semaphore

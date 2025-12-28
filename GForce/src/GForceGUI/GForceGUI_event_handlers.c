@@ -1,8 +1,7 @@
-#include <GForceGUI_thread.h>
 #include "../gui/GForceGUI_resources.h"
 #include "../gui/GForceGUI_specifications.h"
-#include <stdio.h>
 #include "GForceGUI_events.h"
+#include <stdio.h>
 
 #define UNIT_G "g"
 #define UNIT_M "m/s\xC2\xB2"

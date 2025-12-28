@@ -203,7 +203,6 @@
       <configSetting altId="iic2.mode.enabled.a" configurationId="iic2.mode"/>
       <configSetting altId="iic2.scl.p512" configurationId="iic2.scl"/>
       <configSetting altId="iic2.sda.p511" configurationId="iic2.sda"/>
-      <configSetting altId="irq0.mode.enabled" configurationId="irq0.mode"/>
       <configSetting altId="p000.asel" configurationId="p000"/>
       <configSetting altId="p000.gpio_mode.gpio_mode_an" configurationId="p000.gpio_mode"/>
       <configSetting altId="p001.asel" configurationId="p001"/>
@@ -1063,8 +1062,8 @@
       <stack module="module.driver.cgc_on_cgc.0"/>
     </context>
     <context id="rtos.threadx.thread.2139045283">
-      <property id="_symbol" value="GForceGUI_thread"/>
-      <property id="rtos.threadx.thread.name" value="GForceGUI Thread"/>
+      <property id="_symbol" value="display_thread"/>
+      <property id="rtos.threadx.thread.name" value="Display Thread"/>
       <property id="rtos.threadx.thread.stack" value="2048"/>
       <property id="rtos.threadx.thread.priority" value="6"/>
       <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
@@ -1103,7 +1102,11 @@
         <property id="rtos.threadx.object.semaphore.symbol" value="g_display_semaphore_lcdc"/>
         <property id="rtos.threadx.object.semaphore.count" value="0"/>
       </object>
-      <object id="rtos.threadx.object.semaphore.1062382162">
+      <object id="rtos.threadx.object.flags.1093342765">
+        <property id="rtos.threadx.object.flags.name" value="New Event Flags"/>
+        <property id="rtos.threadx.object.flags.symbol" value="g_touch_event_flags"/>
+      </object>
+      <object id="rtos.threadx.object.semaphore.82626614">
         <property id="rtos.threadx.object.semaphore.name" value="Tap Semaphore"/>
         <property id="rtos.threadx.object.semaphore.symbol" value="g_tap_semaphore"/>
         <property id="rtos.threadx.object.semaphore.count" value="0"/>
