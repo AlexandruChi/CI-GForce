@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.4.0.0                                               */
-/*  Date (dd.mm.yyyy): 27.12.2025   Time (hh:mm): 20:05                        */
+/*  Date (dd.mm.yyyy): 28.12.2025   Time (hh:mm): 22:10                        */
 /*******************************************************************************/
 
 
@@ -25,6 +25,12 @@ extern   "C" {
 #define ID_MAIN_WINDOW 1
 #define ID_TITLE 2
 #define ID_TOTAL 3
+#define ID_AXIS_WINDOW 4
+#define ID_SUBTITLE 5
+#define ID_AXIS_X 6
+#define ID_AXIS_Y 7
+#define ID_AXIS_Z 8
+#define ID_INSTRUCTIONS 9
 
 
 /* Define animation ids                                                        */
@@ -102,6 +108,12 @@ typedef struct WINDOW1_CONTROL_BLOCK_STRUCT
     GX_WINDOW_MEMBERS_DECLARE
     GX_PROMPT window1_title;
     GX_NUMERIC_PROMPT window1_total;
+    GX_WINDOW window1_axis_window;
+    GX_PROMPT window1_subtitle;
+    GX_NUMERIC_PROMPT window1_axis_x;
+    GX_NUMERIC_PROMPT window1_axis_y;
+    GX_NUMERIC_PROMPT window1_axis_z;
+    GX_PROMPT window1_instructions;
 } WINDOW1_CONTROL_BLOCK;
 
 

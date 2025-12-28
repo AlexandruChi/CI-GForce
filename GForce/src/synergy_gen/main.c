@@ -126,7 +126,7 @@ void tx_startup_common_init(void)
 
 int main(void)
 {
-    __disable_irq ();
+     __disable_irq ();
     tx_kernel_enter ();
 
     return 0;

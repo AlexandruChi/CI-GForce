@@ -6,7 +6,7 @@
 /*  Studio User Guide, or visit our web site at azure.com/rtos                 */
 /*                                                                             */
 /*  GUIX Studio Revision 6.4.0.0                                               */
-/*  Date (dd.mm.yyyy): 27.12.2025   Time (hh:mm): 20:05                        */
+/*  Date (dd.mm.yyyy): 28.12.2025   Time (hh:mm): 22:10                        */
 /*******************************************************************************/
 
 
@@ -35,12 +35,20 @@
 
 /* Color ID definitions                                                        */
 
-#define DISPLAY_1_COLOR_TABLE_SIZE 29
+#define GX_COLOR_ID_G_HIGH 29
+#define GX_COLOR_ID_G_MEDIUM 30
+#define GX_COLOR_ID_G_NORMAL 31
+#define GX_COLOR_ID_G_LOW 32
+#define DISPLAY_1_COLOR_TABLE_SIZE 33
 
 /* Font ID definitions                                                         */
 
 #define GX_FONT_ID_VALUE_TOTAL 4
-#define DISPLAY_1_FONT_TABLE_SIZE 5
+#define GX_FONT_ID_TITLE 5
+#define GX_FONT_ID_SUBTITLE 6
+#define GX_FONT_ID_VALUE_AXIS 7
+#define GX_FONT_ID_INSTRUCTIONS 8
+#define DISPLAY_1_FONT_TABLE_SIZE 9
 
 /* Pixelmap ID definitions                                                     */
 
@@ -49,6 +57,8 @@
 /* String Ids                                                                  */
 
 #define GX_STRING_ID_TITLE 1
-#define DISPLAY_1_STRING_TABLE_SIZE 2
+#define GX_STRING_ID_SUBTITLE 2
+#define GX_STRING_ID_INSTRUCTIONS 3
+#define DISPLAY_1_STRING_TABLE_SIZE 4
 
 #endif                                       /* sentry                         */

@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.4.0.0                                               */
-/*  Date (dd.mm.yyyy): 27.12.2025   Time (hh:mm): 20:05                        */
+/*  Date (dd.mm.yyyy): 28.12.2025   Time (hh:mm): 22:10                        */
 /*******************************************************************************/
 
 
@@ -113,7 +113,7 @@ GX_WINDOW_PROPERTIES window1_properties =
 GX_PROMPT_PROPERTIES window1_title_properties =
 {
     GX_STRING_ID_TITLE,                      /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_FONT_ID_TITLE,                        /* font id                        */
     GX_COLOR_ID_TEXT,                        /* normal text color              */
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
@@ -128,6 +128,200 @@ GX_NUMERIC_PROMPT_PROPERTIES window1_total_properties =
     format_gforce,                           /* format function                */
     0                                        /* numeric prompt value           */
 };
+GX_WINDOW_PROPERTIES window1_axis_window_properties =
+{
+    0                                        /* wallpaper pixelmap id          */
+};
+GX_PROMPT_PROPERTIES window1_subtitle_properties =
+{
+    GX_STRING_ID_SUBTITLE,                   /* string id                      */
+    GX_FONT_ID_SUBTITLE,                     /* font id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_NUMERIC_PROMPT_PROPERTIES window1_axis_x_properties =
+{
+    0,                                       /* string id                      */
+    GX_FONT_ID_VALUE_AXIS,                   /* font id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    format_gforce,                           /* format function                */
+    0                                        /* numeric prompt value           */
+};
+GX_NUMERIC_PROMPT_PROPERTIES window1_axis_y_properties =
+{
+    0,                                       /* string id                      */
+    GX_FONT_ID_VALUE_AXIS,                   /* font id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    format_gforce,                           /* format function                */
+    0                                        /* numeric prompt value           */
+};
+GX_NUMERIC_PROMPT_PROPERTIES window1_axis_z_properties =
+{
+    0,                                       /* string id                      */
+    GX_FONT_ID_VALUE_AXIS,                   /* font id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    format_gforce,                           /* format function                */
+    0                                        /* numeric prompt value           */
+};
+GX_PROMPT_PROPERTIES window1_instructions_properties =
+{
+    GX_STRING_ID_INSTRUCTIONS,               /* string id                      */
+    GX_FONT_ID_INSTRUCTIONS,                 /* font id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+
+GX_CONST GX_STUDIO_WIDGET window1_axis_z_define =
+{
+    "axis_z",
+    GX_TYPE_NUMERIC_PROMPT,                  /* widget type                    */
+    ID_AXIS_Z,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_NUMERIC_PROMPT),               /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_numeric_prompt_create,         /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {30, 230, 209, 264},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW1_CONTROL_BLOCK, window1_axis_z), /* control block          */
+    (void *) &window1_axis_z_properties      /* extended properties            */
+};
+
+GX_CONST GX_STUDIO_WIDGET window1_axis_y_define =
+{
+    "axis_y",
+    GX_TYPE_NUMERIC_PROMPT,                  /* widget type                    */
+    ID_AXIS_Y,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_NUMERIC_PROMPT),               /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_numeric_prompt_create,         /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {30, 195, 209, 229},                     /* widget size                    */
+    &window1_axis_z_define,                  /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW1_CONTROL_BLOCK, window1_axis_y), /* control block          */
+    (void *) &window1_axis_y_properties      /* extended properties            */
+};
+
+GX_CONST GX_STUDIO_WIDGET window1_axis_x_define =
+{
+    "axis_x",
+    GX_TYPE_NUMERIC_PROMPT,                  /* widget type                    */
+    ID_AXIS_X,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_NUMERIC_PROMPT),               /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_numeric_prompt_create,         /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {30, 160, 209, 194},                     /* widget size                    */
+    &window1_axis_y_define,                  /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW1_CONTROL_BLOCK, window1_axis_x), /* control block          */
+    (void *) &window1_axis_x_properties      /* extended properties            */
+};
+
+GX_CONST GX_STUDIO_WIDGET window1_subtitle_define =
+{
+    "subtitle",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    ID_SUBTITLE,                             /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_COPY|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {10, 110, 229, 159},                     /* widget size                    */
+    &window1_axis_x_define,                  /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW1_CONTROL_BLOCK, window1_subtitle), /* control block        */
+    (void *) &window1_subtitle_properties    /* extended properties            */
+};
+
+GX_CONST GX_STUDIO_WIDGET window1_instructions_define =
+{
+    "instructions",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    ID_INSTRUCTIONS,                         /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_COPY|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, 280, 239, 319},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW1_CONTROL_BLOCK, window1_instructions), /* control block    */
+    (void *) &window1_instructions_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET window1_axis_window_define =
+{
+    "axis_window",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    ID_AXIS_WINDOW,                          /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THICK|GX_STYLE_ENABLED,   /* style flags                   */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_G_NORMAL,                    /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {10, 110, 229, 279},                     /* widget size                    */
+    &window1_instructions_define,            /* next widget definition         */
+    &window1_subtitle_define,                /* child widget definition        */
+    offsetof(WINDOW1_CONTROL_BLOCK, window1_axis_window), /* control block     */
+    (void *) &window1_axis_window_properties /* extended properties            */
+};
 
 GX_CONST GX_STUDIO_WIDGET window1_total_define =
 {
@@ -137,7 +331,7 @@ GX_CONST GX_STUDIO_WIDGET window1_total_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_LEFT,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
     0,                                       /* status flags                   */
     sizeof(GX_NUMERIC_PROMPT),               /* control block size             */
     GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
@@ -147,7 +341,7 @@ GX_CONST GX_STUDIO_WIDGET window1_total_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {20, 50, 219, 99},                       /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    &window1_axis_window_define,             /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(WINDOW1_CONTROL_BLOCK, window1_total), /* control block           */
     (void *) &window1_total_properties       /* extended properties            */
