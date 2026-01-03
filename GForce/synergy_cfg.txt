@@ -72,7 +72,7 @@ Synergy Configuration
       P001 168 - GPIO28 - - Disabled - - "ACMPHS1: IVCMP; ADC0: AN01; ICU0: IRQ07" - IO - - 
       P002 167 - GPIO27 - - Disabled - - "ACMPHS2: IVCMP; ADC0: AN02; ICU0: IRQ08" - IO - - 
       P003 166 - - - - Disabled - - "ADC0: PGAVSS0" - None - - 
-      P004 165 - GPIO26 - None Disabled - - "ACMPHS3: IVCMP; ADC1: AN00; ICU0: IRQ09" - IO - - 
+      P004 165 - GPIO26 - None Disabled - - "ACMPHS3: IVCMP; ADC1: AN00; ICU0: IRQ09" "Touch IRQ" IO - - 
       P005 164 - GPIO25 - None Disabled - - "ACMPHS4: IVCMP; ADC1: AN01; ICU0: IRQ10" - IO - - 
       P006 163 - GPIO24 - None Disabled - - "ACMPHS5: IVCMP; ADC1: AN02; ICU0: IRQ11" - IO - - 
       P007 162 - - - - Disabled - - "ADC1: PGAVSS0" - None - - 
@@ -145,7 +145,7 @@ Synergy Configuration
       P503 143 - Quad_SPI_QIO1 Low - Disabled CMOS None "ADC1: AN17; GPT_POEG2: GTETRG; GPT12: GTIOCB; QSPI0: QIO1; SCI5: SCK; SCI6: CTS; SDHI1: DAT1; USB_FS0: EXICEN" - IO - - 
       P504 144 - Quad_SPI_QIO2 Low - Disabled CMOS None "ADC0: AN18; GPT_POEG3: GTETRG; GPT13: GTIOCA; QSPI0: QIO2; SCI5: CTS; SCI6: SCK; SDHI1: DAT2; USB_FS0: ID" - IO - - 
       P505 145 - Quad_SPI_QIO3 Low None Disabled CMOS None "ADC1: AN18; GPT13: GTIOCB; ICU0: IRQ14; QSPI0: QIO3; SCI6: RXD; SCI6: SCL; SDHI1: DAT3" - IO - - 
-      P506 146 - GPIO16 - None Disabled - None "ADC0: AN19; ICU0: IRQ15; SCI6: SDA; SCI6: TXD; SDHI1: CD" - IO - - 
+      P506 146 - GPIO16 - None Disabled - - "ADC0: AN19; ICU0: IRQ15; SCI6: SDA; SCI6: TXD; SDHI1: CD" "MPU IRQ" IO - - 
       P507 147 - GPIO17 - - Disabled - None "ADC1: AN19; SCI5: CTS; SDHI1: WP" - IO - - 
       P511 176 - - - None Disabled CMOS None "CAN1: CRX; ETHERC_MII0: TX_ER; GPT0: GTIOCB; ICU0: IRQ15; IIC2: SDA; PDC0: PCKO; SCI4: RXD; SCI4: SCL" - IO - - 
       P512 175 - - - None Disabled CMOS None "CAN1: CTX; ETHERC_MII0: ETXD2; GPT0: GTIOCA; ICU0: IRQ14; IIC2: SCL; PDC0: VSYNC; SCI4: SDA; SCI4: TXD" - IO - - 
@@ -249,7 +249,7 @@ Synergy Configuration
       P001 168 ADC0_AN01 GPIO28 - - "Analog mode" - - "ACMPHS1: IVCMP; ADC0: AN01; ICU0: IRQ07" - IO - - 
       P002 167 ADC0_AN02 GPIO27 - - "Analog mode" - - "ACMPHS2: IVCMP; ADC0: AN02; ICU0: IRQ08" - IO - - 
       P003 166 - - - - Disabled - - "ADC0: PGAVSS0" - None - - 
-      P004 165 GPIO GPIO26 - IRQ09 "Input mode" - - "ACMPHS3: IVCMP; ADC1: AN00; ICU0: IRQ09" - IO - - 
+      P004 165 ICU0_IRQ09 GPIO26 - IRQ09 "IRQ mode" - - "ACMPHS3: IVCMP; ADC1: AN00; ICU0: IRQ09" "Touch IRQ" IO - - 
       P005 164 GPIO GPIO25 - IRQ10 "Input mode" - - "ACMPHS4: IVCMP; ADC1: AN01; ICU0: IRQ10" - IO - - 
       P006 163 GPIO GPIO24 - IRQ11 "Input mode" - - "ACMPHS5: IVCMP; ADC1: AN02; ICU0: IRQ11" - IO - - 
       P007 162 - - - - Disabled - - "ADC1: PGAVSS0" - None - - 
@@ -322,7 +322,7 @@ Synergy Configuration
       P503 143 QSPI0_QIO1 Quad_SPI_QIO1 High - "Peripheral mode" CMOS None "ADC1: AN17; GPT_POEG2: GTETRG; GPT12: GTIOCB; QSPI0: QIO1; SCI5: SCK; SCI6: CTS; SDHI1: DAT1; USB_FS0: EXICEN" - IO - - 
       P504 144 QSPI0_QIO2 Quad_SPI_QIO2 High - "Peripheral mode" CMOS None "ADC0: AN18; GPT_POEG3: GTETRG; GPT13: GTIOCA; QSPI0: QIO2; SCI5: CTS; SCI6: SCK; SDHI1: DAT2; USB_FS0: ID" - IO - - 
       P505 145 QSPI0_QIO3 Quad_SPI_QIO3 High None "Peripheral mode" CMOS None "ADC1: AN18; GPT13: GTIOCB; ICU0: IRQ14; QSPI0: QIO3; SCI6: RXD; SCI6: SCL; SDHI1: DAT3" - IO - - 
-      P506 146 GPIO GPIO16 - None "Input mode" - None "ADC0: AN19; ICU0: IRQ15; SCI6: SDA; SCI6: TXD; SDHI1: CD" - IO - - 
+      P506 146 ICU0_IRQ15 GPIO16 - IRQ15 "IRQ mode" - - "ADC0: AN19; ICU0: IRQ15; SCI6: SDA; SCI6: TXD; SDHI1: CD" "MPU IRQ" IO - - 
       P507 147 GPIO GPIO17 - - "Input mode" - None "ADC1: AN19; SCI5: CTS; SDHI1: WP" - IO - - 
       P511 176 IIC2_SDA - - None "Peripheral mode" CMOS None "CAN1: CRX; ETHERC_MII0: TX_ER; GPT0: GTIOCB; ICU0: IRQ15; IIC2: SDA; PDC0: PCKO; SCI4: RXD; SCI4: SCL" - IO - - 
       P512 175 IIC2_SCL - - None "Peripheral mode" CMOS None "CAN1: CTX; ETHERC_MII0: ETXD2; GPT0: GTIOCA; ICU0: IRQ14; IIC2: SCL; PDC0: VSYNC; SCI4: SDA; SCI4: TXD" - IO - - 
@@ -524,13 +524,13 @@ Synergy Configuration
         Reset Port: 06
         Reset Pin: 09
         
-        Instance "g_sf_i2c_device0 I2C Framework Device on sf_i2c"
-          Name: g_sf_i2c_device0
+        Instance "g_sf_i2c_device_touch I2C Framework Device on sf_i2c"
+          Name: g_sf_i2c_device_touch
           Slave Address : 0x48
           Address Mode: 7-Bit
           
-          Instance "g_sf_i2c_bus0 I2C Framework Shared Bus on sf_i2c"
-            Name: g_sf_i2c_bus0
+          Instance "g_sf_i2c_bus I2C Framework Shared Bus on sf_i2c"
+            Name: g_sf_i2c_bus
             
             Instance "g_i2c I2C Master Driver on r_riic"
               Name: g_i2c
@@ -580,12 +580,12 @@ Synergy Configuration
                 Callback (Only valid with Software start): NULL
                 ELC Software Event Interrupt Priority: Disabled
                 
-        Instance "g_sf_external_irq0 External IRQ Framework on sf_external_irq"
-          Name: g_sf_external_irq0
+        Instance "g_sf_external_irq_touch External IRQ Framework on sf_external_irq"
+          Name: g_sf_external_irq_touch
           Event: Semaphore Put
           
-          Instance "g_external_irq0 External IRQ Driver on r_icu"
-            Name: g_external_irq0
+          Instance "g_external_irq_touch External IRQ Driver on r_icu"
+            Name: g_external_irq_touch
             Channel: 9
             Trigger: Falling
             Digital Filtering: Enabled
@@ -836,6 +836,94 @@ Synergy Configuration
     Object "g_tap_semaphore Semaphore"
       Name: Tap Semaphore
       Symbol: g_tap_semaphore
+      Initial count: 0
+      
+    Object "g_display_mutex Mutex"
+      Name: Display Mutex
+      Symbol: g_display_mutex
+      Priority inheritance: Disabled
+      
+  Thread "Sensor Thread"
+    Symbol: sensor_thread
+    Name: Sensor Thread
+    Stack size (bytes): 1024
+    Priority: 1
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
+    Instance "g_sf_i2c_device_sensor I2C Framework Device on sf_i2c"
+      Name: g_sf_i2c_device_sensor
+      Slave Address : 0x68
+      Address Mode: 7-Bit
+      
+      Instance "g_sf_i2c_bus I2C Framework Shared Bus on sf_i2c"
+        Name: g_sf_i2c_bus
+        
+        Instance "g_i2c I2C Master Driver on r_riic"
+          Name: g_i2c
+          Channel: 2
+          Rate: Fast-mode
+          Slave Address: 0
+          Address Mode: 7-Bit
+          SDA Output Delay (nano seconds): 0
+          Timeout Mode: Short Mode
+          Callback: NULL
+          Receive Interrupt Priority: Priority 3
+          Transmit Interrupt Priority: Priority 3
+          Transmit End Interrupt Priority: Priority 3
+          Error Interrupt Priority: Priority 3
+          
+          Instance "g_transfer4 Transfer Driver on r_dtc IIC2 TXI"
+            Name: g_transfer4
+            Mode: Normal
+            Transfer Size: 1 Byte
+            Destination Address Mode: Fixed
+            Source Address Mode: Incremented
+            Repeat Area (Unused in Normal Mode): Source
+            Interrupt Frequency: After all transfers have completed
+            Destination Pointer: NULL
+            Source Pointer: NULL
+            Number of Transfers: 0
+            Number of Blocks (Valid only in Block Mode): 0
+            Activation Source (Must enable IRQ): IIC2 TXI
+            Auto Enable: False
+            Callback (Only valid with Software start): NULL
+            ELC Software Event Interrupt Priority: Disabled
+            
+          Instance "g_transfer5 Transfer Driver on r_dtc IIC2 RXI"
+            Name: g_transfer5
+            Mode: Normal
+            Transfer Size: 1 Byte
+            Destination Address Mode: Incremented
+            Source Address Mode: Fixed
+            Repeat Area (Unused in Normal Mode): Destination
+            Interrupt Frequency: After all transfers have completed
+            Destination Pointer: NULL
+            Source Pointer: NULL
+            Number of Transfers: 0
+            Number of Blocks (Valid only in Block Mode): 0
+            Activation Source (Must enable IRQ): IIC2 RXI
+            Auto Enable: False
+            Callback (Only valid with Software start): NULL
+            ELC Software Event Interrupt Priority: Disabled
+            
+    Instance "g_sf_external_irq_sensor External IRQ Framework on sf_external_irq"
+      Name: g_sf_external_irq_sensor
+      Event: Semaphore Put
+      
+      Instance "g_external_irq_sensor External IRQ Driver on r_icu"
+        Name: g_external_irq_sensor
+        Channel: 15
+        Trigger: Rising
+        Digital Filtering: Enabled
+        Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): PCLK / 64
+        Interrupt enabled after initialization: True
+        Callback: NULL
+        Pin Interrupt Priority: Priority 0 (highest)
+        
+    Object "g_data_semaphore Semaphore"
+      Name: Data Semaphore
+      Symbol: g_data_semaphore
       Initial count: 0
       
   Messaging

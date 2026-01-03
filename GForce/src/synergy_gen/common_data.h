@@ -110,25 +110,25 @@ extern const riic_extended_cfg g_i2c_extend;
 #endif
 #undef SYNERGY_NOT_DEFINED
 #define g_i2c_P_EXTEND (&g_i2c_extend)
-extern sf_i2c_bus_t g_sf_i2c_bus0;
+extern sf_i2c_bus_t g_sf_i2c_bus;
 extern i2c_api_master_t const g_i2c_master_on_riic;
 
-#define g_sf_i2c_bus0_CHANNEL        (2)
-#define g_sf_i2c_bus0_RATE           (I2C_RATE_FAST)
-#define g_sf_i2c_bus0_SLAVE          (0)
-#define g_sf_i2c_bus0_ADDR_MODE      (I2C_ADDR_MODE_7BIT)          
-#define g_sf_i2c_bus0_SDA_DELAY      (0)  
-#define g_sf_i2c_bus0_P_CALLBACK     (NULL)
-#define g_sf_i2c_bus0_P_CONTEXT      (&g_i2c)
-#define g_sf_i2c_bus0_RXI_IPL        ((3))
-#define g_sf_i2c_bus0_TXI_IPL        ((3))
-#define g_sf_i2c_bus0_TEI_IPL        ((3))            
-#define g_sf_i2c_bus0_ERI_IPL        ((3))
+#define g_sf_i2c_bus_CHANNEL        (2)
+#define g_sf_i2c_bus_RATE           (I2C_RATE_FAST)
+#define g_sf_i2c_bus_SLAVE          (0)
+#define g_sf_i2c_bus_ADDR_MODE      (I2C_ADDR_MODE_7BIT)          
+#define g_sf_i2c_bus_SDA_DELAY      (0)  
+#define g_sf_i2c_bus_P_CALLBACK     (NULL)
+#define g_sf_i2c_bus_P_CONTEXT      (&g_i2c)
+#define g_sf_i2c_bus_RXI_IPL        ((3))
+#define g_sf_i2c_bus_TXI_IPL        ((3))
+#define g_sf_i2c_bus_TEI_IPL        ((3))            
+#define g_sf_i2c_bus_ERI_IPL        ((3))
 
 /** These are obtained by macros in the I2C driver XMLs. */
-#define g_sf_i2c_bus0_P_TRANSFER_TX  (g_i2c_P_TRANSFER_TX)
-#define g_sf_i2c_bus0_P_TRANSFER_RX  (g_i2c_P_TRANSFER_RX)            
-#define g_sf_i2c_bus0_P_EXTEND       (g_i2c_P_EXTEND)
+#define g_sf_i2c_bus_P_TRANSFER_TX  (g_i2c_P_TRANSFER_TX)
+#define g_sf_i2c_bus_P_TRANSFER_RX  (g_i2c_P_TRANSFER_RX)            
+#define g_sf_i2c_bus_P_EXTEND       (g_i2c_P_EXTEND)
 /** CGC Instance */
 extern const cgc_instance_t g_cgc;
 /** IOPORT Instance */

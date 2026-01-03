@@ -47,14 +47,14 @@ void g_lcd_spi_callback(spi_callback_args_t *p_args);
 
 #define g_spi_lcdc_P_EXTEND (&g_spi_lcdc_cfg_extend)
 /* External IRQ on ICU Instance. */
-extern const external_irq_instance_t g_external_irq0;
+extern const external_irq_instance_t g_external_irq_touch;
 #ifndef NULL
 void NULL(external_irq_callback_args_t *p_args);
 #endif
 /** SF External IRQ on SF External IRQ Instance. */
-extern const sf_external_irq_instance_t g_sf_external_irq0;
+extern const sf_external_irq_instance_t g_sf_external_irq_touch;
 /* SF I2C on SF I2C Instance. */
-extern const sf_i2c_instance_t g_sf_i2c_device0;
+extern const sf_i2c_instance_t g_sf_i2c_device_touch;
 extern const sf_touch_panel_chip_instance_t g_touch_panel_chip_sx8654;
 extern const sf_touch_panel_chip_api_t g_sf_touch_panel_chip_sx8654;
 /** SF Touch Panel V2 on SF Touch Panel V2 Instance. */
@@ -67,6 +67,7 @@ void sf_touch_panel_v2_init(void);
 extern TX_SEMAPHORE g_display_semaphore_lcdc;
 extern TX_EVENT_FLAGS_GROUP g_touch_event_flags;
 extern TX_SEMAPHORE g_tap_semaphore;
+extern TX_MUTEX g_display_mutex;
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

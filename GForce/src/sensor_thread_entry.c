@@ -1,0 +1,135 @@
+#include "sensor_thread.h"
+#include "MPU6500.h"
+#include "i2c.h"
+
+#define I2C_TIMEOUT 10
+#define I2C_RETRIES 10
+
+ssp_err_t init_MPU6500(const sf_i2c_instance_t *device, uint32_t init_time);
+ssp_err_t check_MPU6500(const sf_i2c_instance_t *device, uint8_t *new_data);
+ssp_err_t read_data_MPU6500(const sf_i2c_instance_t *device, double *data);
+
+void sensor_thread_entry(void) {
+    ssp_err_t ret = SSP_SUCCESS;
+
+    if (SSP_SUCCESS != (ret = g_sf_i2c_device_sensor.p_api->open(g_sf_i2c_device_sensor.p_ctrl, g_sf_i2c_device_sensor.p_cfg))) {
+        while(1);
+    }
+
+    if (SSP_SUCCESS != (ret = init_MPU6500(&g_sf_i2c_device_sensor, 100))) {
+        while(1);
+    }
+
+    if (SSP_SUCCESS != (ret = g_sf_external_irq_sensor.p_api->open(g_sf_external_irq_sensor.p_ctrl, g_sf_external_irq_sensor.p_cfg))) {
+        while(1);
+    }
+
+    uint8_t new_data;
+    double data[3];
+
+    while (1) {
+        g_sf_external_irq_sensor.p_api->wait(g_sf_external_irq_sensor.p_ctrl, TX_WAIT_FOREVER);
+
+        if (SSP_SUCCESS != (ret = check_MPU6500(&g_sf_i2c_device_sensor, &new_data))) {
+            while(1);
+        }
+
+        if (new_data) {
+            if (SSP_SUCCESS != (ret = read_data_MPU6500(&g_sf_i2c_device_sensor, data))) {
+                while(1);
+            }
+
+            __NOP();
+        }
+
+        __NOP();
+    }
+}
+
+ssp_err_t init_MPU6500(const sf_i2c_instance_t *device, uint32_t init_time) {
+    ssp_err_t ret = SSP_SUCCESS;
+
+    for (size_t i = 0; i < I2C_RETRIES; i++) {
+        device->p_api->lockWait(g_sf_i2c_device_sensor.p_ctrl, TX_WAIT_FOREVER);
+        ret = i2c_write_register(device, PWR_MGMT_1, 1 << DEVICE_RESET, I2C_TIMEOUT);
+        device->p_api->unlock(g_sf_i2c_device_sensor.p_ctrl);
+        if (SSP_SUCCESS != ret) {
+            continue;
+        }
+
+        break;
+    }
+
+    if (ret != SSP_SUCCESS) {
+        return ret;
+    }
+
+    tx_thread_sleep(init_time);
+
+    for (size_t i = 0; i < I2C_RETRIES; i++) {
+        device->p_api->lockWait(g_sf_i2c_device_sensor.p_ctrl, TX_WAIT_FOREVER);
+        ret = i2c_write_register(device, PWR_MGMT_1, 1 << TEMP_DIS, I2C_TIMEOUT);
+        ret = i2c_write_register(device, PWR_MGMT_2, 1 << DISABLE_XG | 1 << DISABLE_YG | 1 << DISABLE_ZG, I2C_TIMEOUT);
+        ret = i2c_write_register(device, INT_ENABLE, 1 << RAW_RDY_EN, I2C_TIMEOUT);
+        device->p_api->unlock(g_sf_i2c_device_sensor.p_ctrl);
+        if (SSP_SUCCESS != ret) {
+            continue;
+        }
+
+        break;
+    }
+
+    return ret;
+}
+
+ssp_err_t check_MPU6500(const sf_i2c_instance_t *device, uint8_t *new_data) {
+    ssp_err_t ret = SSP_SUCCESS;
+    uint8_t byte;
+
+    for (size_t i = 0; i < I2C_RETRIES; i++) {
+        device->p_api->lockWait(g_sf_i2c_device_sensor.p_ctrl, TX_WAIT_FOREVER);
+        ret = i2c_read_register(device, INT_STATUS, &byte, I2C_TIMEOUT);
+        device->p_api->unlock(g_sf_i2c_device_sensor.p_ctrl);
+        if (SSP_SUCCESS != ret) {
+            continue;
+        }
+
+        break;
+    }
+
+    if (ret != SSP_SUCCESS) {
+        return ret;
+    }
+
+    *new_data = (byte & (1 << RAW_DATA_RDY_INT)) != 0;
+
+    return ret;
+}
+
+#define int16_HL(X, Y) ((int16_t)(((uint16_t)(X) << 8) | ((uint8_t)(Y))))
+
+ssp_err_t read_data_MPU6500(const sf_i2c_instance_t *device, double *data) {
+    ssp_err_t ret = SSP_SUCCESS;
+    uint8_t raw_data[6];
+
+    for (size_t i = 0; i < I2C_RETRIES; i++) {
+        device->p_api->lockWait(g_sf_i2c_device_sensor.p_ctrl, TX_WAIT_FOREVER);
+        ret = i2c_read_register_n(device, ACCEL_XOUT_H, raw_data, 6, I2C_TIMEOUT);
+        device->p_api->unlock(g_sf_i2c_device_sensor.p_ctrl);
+        if (SSP_SUCCESS != ret) {
+            continue;
+        }
+
+        break;
+    }
+
+    if (ret != SSP_SUCCESS) {
+        return ret;
+    }
+
+    data[0] = scale_lsb_2g * int16_HL(raw_data[0], raw_data[1]);
+    data[1] = scale_lsb_2g * int16_HL(raw_data[2], raw_data[3]);
+    data[2] = scale_lsb_2g * int16_HL(raw_data[4], raw_data[5]);
+
+    return ret;
+}

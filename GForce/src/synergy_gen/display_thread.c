@@ -48,61 +48,60 @@ const spi_cfg_t g_spi_lcdc_cfg =
 const spi_instance_t g_spi_lcdc =
 { .p_ctrl = &g_spi_lcdc_ctrl, .p_cfg = &g_spi_lcdc_cfg, .p_api = &g_spi_on_sci };
 #if (3) != BSP_IRQ_DISABLED
-#if !defined(SSP_SUPPRESS_ISR_g_external_irq0) && !defined(SSP_SUPPRESS_ISR_ICU9)
+#if !defined(SSP_SUPPRESS_ISR_g_external_irq_touch) && !defined(SSP_SUPPRESS_ISR_ICU9)
 SSP_VECTOR_DEFINE( icu_irq_isr, ICU, IRQ9);
 #endif
 #endif
-static icu_instance_ctrl_t g_external_irq0_ctrl;
-static const external_irq_cfg_t g_external_irq0_cfg =
+static icu_instance_ctrl_t g_external_irq_touch_ctrl;
+static const external_irq_cfg_t g_external_irq_touch_cfg =
 { .channel = 9,
   .trigger = EXTERNAL_IRQ_TRIG_FALLING,
   .filter_enable = true,
   .pclk_div = EXTERNAL_IRQ_PCLK_DIV_BY_64,
   .autostart = true,
   .p_callback = NULL,
-  .p_context = &g_external_irq0,
+  .p_context = &g_external_irq_touch,
   .p_extend = NULL,
   .irq_ipl = (3), };
 /* Instance structure to use this module. */
-const external_irq_instance_t g_external_irq0 =
-{ .p_ctrl = &g_external_irq0_ctrl, .p_cfg = &g_external_irq0_cfg, .p_api = &g_external_irq_on_icu };
-sf_external_irq_instance_ctrl_t g_sf_external_irq0_ctrl;
-const sf_external_irq_cfg_t g_sf_external_irq0_cfg =
-{ .event = SF_EXTERNAL_IRQ_EVENT_SEMAPHORE_PUT, .p_lower_lvl_irq = &g_external_irq0, };
+const external_irq_instance_t g_external_irq_touch =
+{ .p_ctrl = &g_external_irq_touch_ctrl, .p_cfg = &g_external_irq_touch_cfg, .p_api = &g_external_irq_on_icu };
+sf_external_irq_instance_ctrl_t g_sf_external_irq_touch_ctrl;
+const sf_external_irq_cfg_t g_sf_external_irq_touch_cfg =
+{ .event = SF_EXTERNAL_IRQ_EVENT_SEMAPHORE_PUT, .p_lower_lvl_irq = &g_external_irq_touch, };
 /* Instance structure to use this module. */
-const sf_external_irq_instance_t g_sf_external_irq0 =
-{ .p_ctrl = &g_sf_external_irq0_ctrl, .p_cfg = &g_sf_external_irq0_cfg, .p_api = &g_sf_external_irq_on_sf_external_irq };
+const sf_external_irq_instance_t g_sf_external_irq_touch =
+{ .p_ctrl = &g_sf_external_irq_touch_ctrl, .p_cfg = &g_sf_external_irq_touch_cfg, .p_api =
+          &g_sf_external_irq_on_sf_external_irq };
 /** Get driver cfg from bus and use all same settings except slave address and addressing mode. */
-const i2c_cfg_t g_sf_i2c_device0_i2c_cfg =
-{ .channel = g_sf_i2c_bus0_CHANNEL,
-  .rate = g_sf_i2c_bus0_RATE,
+const i2c_cfg_t g_sf_i2c_device_touch_i2c_cfg =
+{ .channel = g_sf_i2c_bus_CHANNEL,
+  .rate = g_sf_i2c_bus_RATE,
   .slave = 0x48,
   .addr_mode = I2C_ADDR_MODE_7BIT,
-  .sda_delay = g_sf_i2c_bus0_SDA_DELAY,
-  .p_transfer_tx = g_sf_i2c_bus0_P_TRANSFER_TX,
-  .p_transfer_rx = g_sf_i2c_bus0_P_TRANSFER_RX,
-  .p_callback = g_sf_i2c_bus0_P_CALLBACK,
-  .p_context = g_sf_i2c_bus0_P_CONTEXT,
-  .rxi_ipl = g_sf_i2c_bus0_RXI_IPL,
-  .txi_ipl = g_sf_i2c_bus0_TXI_IPL,
-  .tei_ipl = g_sf_i2c_bus0_TEI_IPL,
-  .eri_ipl = g_sf_i2c_bus0_ERI_IPL,
-  .p_extend = g_sf_i2c_bus0_P_EXTEND, };
+  .sda_delay = g_sf_i2c_bus_SDA_DELAY,
+  .p_transfer_tx = g_sf_i2c_bus_P_TRANSFER_TX,
+  .p_transfer_rx = g_sf_i2c_bus_P_TRANSFER_RX,
+  .p_callback = g_sf_i2c_bus_P_CALLBACK,
+  .p_context = g_sf_i2c_bus_P_CONTEXT,
+  .rxi_ipl = g_sf_i2c_bus_RXI_IPL,
+  .txi_ipl = g_sf_i2c_bus_TXI_IPL,
+  .tei_ipl = g_sf_i2c_bus_TEI_IPL,
+  .eri_ipl = g_sf_i2c_bus_ERI_IPL,
+  .p_extend = g_sf_i2c_bus_P_EXTEND, };
 
-sf_i2c_instance_ctrl_t g_sf_i2c_device0_ctrl =
+sf_i2c_instance_ctrl_t g_sf_i2c_device_touch_ctrl =
 { .p_lower_lvl_ctrl = &g_i2c_ctrl, };
-const sf_i2c_cfg_t g_sf_i2c_device0_cfg =
-{ .p_bus = (sf_i2c_bus_t*) &g_sf_i2c_bus0, .p_lower_lvl_cfg = &g_sf_i2c_device0_i2c_cfg, };
+const sf_i2c_cfg_t g_sf_i2c_device_touch_cfg =
+{ .p_bus = (sf_i2c_bus_t*) &g_sf_i2c_bus, .p_lower_lvl_cfg = &g_sf_i2c_device_touch_i2c_cfg, };
 /* Instance structure to use this module. */
-const sf_i2c_instance_t g_sf_i2c_device0 =
-{ .p_ctrl = &g_sf_i2c_device0_ctrl, .p_cfg = &g_sf_i2c_device0_cfg, .p_api = &g_sf_i2c_on_sf_i2c };
+const sf_i2c_instance_t g_sf_i2c_device_touch =
+{ .p_ctrl = &g_sf_i2c_device_touch_ctrl, .p_cfg = &g_sf_i2c_device_touch_cfg, .p_api = &g_sf_i2c_on_sf_i2c };
 sf_touch_panel_chip_sx8654_instance_ctrl_t g_touch_panel_chip_sx8654_ctrl;
 const sf_touch_panel_chip_on_sx8654_cfg_t g_touch_panel_chip_sx8654_cfg_extend =
-{ .pin = IOPORT_PORT_06_PIN_09,
-  .p_lower_lvl_framewrk = &g_sf_i2c_device0,
-  .p_lower_lvl_irq = &g_sf_external_irq0,
-  .hsize_pixels = 240,
-  .vsize_pixels = 320 };
+{ .pin = IOPORT_PORT_06_PIN_09, .p_lower_lvl_framewrk = &g_sf_i2c_device_touch, .p_lower_lvl_irq =
+          &g_sf_external_irq_touch,
+  .hsize_pixels = 240, .vsize_pixels = 320 };
 const sf_touch_panel_chip_cfg_t g_touch_panel_chip_sx8654_cfg =
 { .p_extend = &g_touch_panel_chip_sx8654_cfg_extend };
 const sf_touch_panel_chip_instance_t g_touch_panel_chip_sx8654 =
@@ -175,6 +174,7 @@ void sf_touch_panel_v2_init(void)
 TX_SEMAPHORE g_display_semaphore_lcdc;
 TX_EVENT_FLAGS_GROUP g_touch_event_flags;
 TX_SEMAPHORE g_tap_semaphore;
+TX_MUTEX g_display_mutex;
 extern bool g_ssp_common_initialized;
 extern uint32_t g_ssp_common_thread_count;
 extern TX_SEMAPHORE g_ssp_common_initialized_semaphore;
@@ -202,6 +202,12 @@ void display_thread_create(void)
     if (TX_SUCCESS != err_g_tap_semaphore)
     {
         tx_startup_err_callback (&g_tap_semaphore, 0);
+    }
+    UINT err_g_display_mutex;
+    err_g_display_mutex = tx_mutex_create (&g_display_mutex, (CHAR*) "Display Mutex", TX_NO_INHERIT);
+    if (TX_SUCCESS != err_g_display_mutex)
+    {
+        tx_startup_err_callback (&g_display_mutex, 0);
     }
 
     UINT err;

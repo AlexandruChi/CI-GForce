@@ -272,7 +272,7 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] = {
     },
     {
         .pin = IOPORT_PORT_05_PIN_06,
-        .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_INPUT),
+        .pin_cfg = ((uint32_t) IOPORT_CFG_IRQ_ENABLE | (uint32_t) IOPORT_CFG_PORT_DIRECTION_INPUT),
     },
     {
         .pin = IOPORT_PORT_05_PIN_07,

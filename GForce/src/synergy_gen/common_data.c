@@ -471,19 +471,16 @@ const i2c_cfg_t g_i2c_cfg =
 /* Instance structure to use this module. */
 const i2c_master_instance_t g_i2c =
 { .p_ctrl = &g_i2c_ctrl, .p_cfg = &g_i2c_cfg, .p_api = &g_i2c_master_on_riic };
-static TX_MUTEX sf_bus_mutex_g_sf_i2c_bus0;
-static TX_EVENT_FLAGS_GROUP sf_bus_eventflag_g_sf_i2c_bus0;
-static sf_i2c_instance_ctrl_t *sf_curr_ctrl_g_sf_i2c_bus0;
-static sf_i2c_instance_ctrl_t *sf_curr_bus_ctrl_g_sf_i2c_bus0;
-sf_i2c_bus_t g_sf_i2c_bus0 =
-{ .p_bus_name = (uint8_t*) "g_sf_i2c_bus0",
-  .channel = 2,
-  .p_lock_mutex = &sf_bus_mutex_g_sf_i2c_bus0,
-  .p_sync_eventflag = &sf_bus_eventflag_g_sf_i2c_bus0,
-  .pp_curr_ctrl = (sf_i2c_ctrl_t**) &sf_curr_ctrl_g_sf_i2c_bus0,
-  .p_lower_lvl_api = (i2c_api_master_t*) &g_i2c_master_on_riic,
-  .device_count = 0,
-  .pp_curr_bus_ctrl = (sf_i2c_ctrl_t**) &sf_curr_bus_ctrl_g_sf_i2c_bus0, };
+static TX_MUTEX sf_bus_mutex_g_sf_i2c_bus;
+static TX_EVENT_FLAGS_GROUP sf_bus_eventflag_g_sf_i2c_bus;
+static sf_i2c_instance_ctrl_t *sf_curr_ctrl_g_sf_i2c_bus;
+static sf_i2c_instance_ctrl_t *sf_curr_bus_ctrl_g_sf_i2c_bus;
+sf_i2c_bus_t g_sf_i2c_bus =
+{ .p_bus_name = (uint8_t*) "g_sf_i2c_bus", .channel = 2, .p_lock_mutex = &sf_bus_mutex_g_sf_i2c_bus, .p_sync_eventflag =
+          &sf_bus_eventflag_g_sf_i2c_bus,
+  .pp_curr_ctrl = (sf_i2c_ctrl_t**) &sf_curr_ctrl_g_sf_i2c_bus, .p_lower_lvl_api =
+          (i2c_api_master_t*) &g_i2c_master_on_riic,
+  .device_count = 0, .pp_curr_bus_ctrl = (sf_i2c_ctrl_t**) &sf_curr_bus_ctrl_g_sf_i2c_bus, };
 const cgc_instance_t g_cgc =
 { .p_api = &g_cgc_on_cgc, .p_cfg = NULL };
 const ioport_instance_t g_ioport =

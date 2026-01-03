@@ -123,6 +123,8 @@
     <symbolicName propertyId="pa10.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA07_B"/>
     <symbolicName propertyId="pb00.symbolic_name" value="USB_High_Speed_USBHS_VBUSEN"/>
     <symbolicName propertyId="pb01.symbolic_name" value="USB_High_Speed_USBHS_VBUS"/>
+    <comment propertyId="p004.comment" value="Touch IRQ"/>
+    <comment propertyId="p506.comment" value="MPU IRQ"/>
     <pincfg active="false" name="R7FS7G27H3A01CFC.pincfg" selected="false" symbol="">
       <configSetting altId="debug0.mode.jtag" configurationId="debug0.mode"/>
       <configSetting altId="debug0.tck.p300" configurationId="debug0.tck"/>
@@ -203,15 +205,18 @@
       <configSetting altId="iic2.mode.enabled.a" configurationId="iic2.mode"/>
       <configSetting altId="iic2.scl.p512" configurationId="iic2.scl"/>
       <configSetting altId="iic2.sda.p511" configurationId="iic2.sda"/>
+      <configSetting altId="irq0.irq09.p004" configurationId="irq0.irq09"/>
+      <configSetting altId="irq0.irq15.p506" configurationId="irq0.irq15"/>
+      <configSetting altId="irq0.mode.enabled" configurationId="irq0.mode"/>
       <configSetting altId="p000.asel" configurationId="p000"/>
       <configSetting altId="p000.gpio_mode.gpio_mode_an" configurationId="p000.gpio_mode"/>
       <configSetting altId="p001.asel" configurationId="p001"/>
       <configSetting altId="p001.gpio_mode.gpio_mode_an" configurationId="p001.gpio_mode"/>
       <configSetting altId="p002.asel" configurationId="p002"/>
       <configSetting altId="p002.gpio_mode.gpio_mode_an" configurationId="p002.gpio_mode"/>
-      <configSetting altId="p004.input" configurationId="p004"/>
+      <configSetting altId="p004.irq0.irq09" configurationId="p004"/>
       <configSetting altId="p004.gpio_irq.gpio_irq_enabled" configurationId="p004.gpio_irq"/>
-      <configSetting altId="p004.gpio_mode.gpio_mode_in" configurationId="p004.gpio_mode"/>
+      <configSetting altId="p004.gpio_mode.gpio_mode_irq" configurationId="p004.gpio_mode"/>
       <configSetting altId="p005.input" configurationId="p005"/>
       <configSetting altId="p005.gpio_irq.gpio_irq_enabled" configurationId="p005.gpio_irq"/>
       <configSetting altId="p005.gpio_mode.gpio_mode_in" configurationId="p005.gpio_mode"/>
@@ -374,8 +379,9 @@
       <configSetting altId="p505.qspi0.qio3" configurationId="p505"/>
       <configSetting altId="p505.gpio_speed.gpio_speed_high" configurationId="p505.gpio_drivecapacity"/>
       <configSetting altId="p505.gpio_mode.gpio_mode_peripheral" configurationId="p505.gpio_mode"/>
-      <configSetting altId="p506.input" configurationId="p506"/>
-      <configSetting altId="p506.gpio_mode.gpio_mode_in" configurationId="p506.gpio_mode"/>
+      <configSetting altId="p506.irq0.irq15" configurationId="p506"/>
+      <configSetting altId="p506.gpio_irq.gpio_irq_enabled" configurationId="p506.gpio_irq"/>
+      <configSetting altId="p506.gpio_mode.gpio_mode_irq" configurationId="p506.gpio_mode"/>
       <configSetting altId="p507.input" configurationId="p507"/>
       <configSetting altId="p507.gpio_mode.gpio_mode_in" configurationId="p507.gpio_mode"/>
       <configSetting altId="p511.iic2.sda" configurationId="p511"/>
@@ -756,19 +762,19 @@
       <property id="module.external.ex_touch_panel_chip_sx8654.pin" value="module.external.ex_touch_panel_chip_sx8654.pin.PIN_09"/>
     </module>
     <module id="module.framework.sf_i2c_on_sf_i2c_v2.1205018661">
-      <property id="module.framework.sf_i2c_v2.name" value="g_sf_i2c_device0"/>
+      <property id="module.framework.sf_i2c_v2.name" value="g_sf_i2c_device_touch"/>
       <property id="module.framework.sf_i2c_v2.slave" value="0x48"/>
       <property id="module.framework.sf_i2c_v2.addr_mode" value="module.framework.sf_i2c_v2.addr_mode.addr_mode_7bit"/>
     </module>
     <module id="module.framework.sf_i2c_bus_on_sf_i2c_v2.1031279253">
-      <property id="module.framework.sf_i2c_bus_v2.name" value="g_sf_i2c_bus0"/>
+      <property id="module.framework.sf_i2c_bus_v2.name" value="g_sf_i2c_bus"/>
     </module>
     <module id="module.framework.sf_external_irq_on_sf_external_irq.148836369">
-      <property id="module.framework.sf_external_irq.name" value="g_sf_external_irq0"/>
+      <property id="module.framework.sf_external_irq.name" value="g_sf_external_irq_touch"/>
       <property id="module.framework.sf_external_irq.event" value="module.framework.sf_external_irq.event.button_event_semaphore_put"/>
     </module>
     <module id="module.driver.external_irq_on_icu.794891125">
-      <property id="module.driver.external_irq.name" value="g_external_irq0"/>
+      <property id="module.driver.external_irq.name" value="g_external_irq_touch"/>
       <property id="module.driver.external_irq.channel" value="9"/>
       <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_falling"/>
       <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.true"/>
@@ -1055,6 +1061,25 @@
       <property id="module.driver.spi.tei_ipl" value="board.icu.common.irq.priority3"/>
       <property id="module.driver.spi.eri_ipl" value="board.icu.common.irq.priority3"/>
     </module>
+    <module id="module.framework.sf_i2c_on_sf_i2c_v2.2094861099">
+      <property id="module.framework.sf_i2c_v2.name" value="g_sf_i2c_device_sensor"/>
+      <property id="module.framework.sf_i2c_v2.slave" value="0x68"/>
+      <property id="module.framework.sf_i2c_v2.addr_mode" value="module.framework.sf_i2c_v2.addr_mode.addr_mode_7bit"/>
+    </module>
+    <module id="module.framework.sf_external_irq_on_sf_external_irq.2001708694">
+      <property id="module.framework.sf_external_irq.name" value="g_sf_external_irq_sensor"/>
+      <property id="module.framework.sf_external_irq.event" value="module.framework.sf_external_irq.event.button_event_semaphore_put"/>
+    </module>
+    <module id="module.driver.external_irq_on_icu.227811375">
+      <property id="module.driver.external_irq.name" value="g_external_irq_sensor"/>
+      <property id="module.driver.external_irq.channel" value="15"/>
+      <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_rising"/>
+      <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.true"/>
+      <property id="module.driver.external_irq.pclk_div" value="module.driver.external_irq.pclk_div.pclk_div_by_64"/>
+      <property id="module.driver.external_irq.interrupt_enable" value="module.driver.external_irq.interrupt_enable.true"/>
+      <property id="module.driver.external_irq.p_callback" value="NULL"/>
+      <property id="module.driver.external_irq.irq_ipl" value="board.icu.common.irq.priority0"/>
+    </module>
     <context id="_hal.0">
       <stack module="module.driver.elc_on_elc.0"/>
       <stack module="module.driver.fmi_on_fmi.0"/>
@@ -1109,6 +1134,35 @@
       <object id="rtos.threadx.object.semaphore.82626614">
         <property id="rtos.threadx.object.semaphore.name" value="Tap Semaphore"/>
         <property id="rtos.threadx.object.semaphore.symbol" value="g_tap_semaphore"/>
+        <property id="rtos.threadx.object.semaphore.count" value="0"/>
+      </object>
+      <object id="rtos.threadx.object.mutex.226713432">
+        <property id="rtos.threadx.object.mutex.name" value="Display Mutex"/>
+        <property id="rtos.threadx.object.mutex.symbol" value="g_display_mutex"/>
+        <property id="rtos.threadx.object.mutex.inherit" value="rtos.threadx.object.mutex.inherit.disabled"/>
+      </object>
+    </context>
+    <context id="rtos.threadx.thread.1057534971">
+      <property id="_symbol" value="sensor_thread"/>
+      <property id="rtos.threadx.thread.name" value="Sensor Thread"/>
+      <property id="rtos.threadx.thread.stack" value="1024"/>
+      <property id="rtos.threadx.thread.priority" value="1"/>
+      <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
+      <property id="rtos.threadx.thread.timeslice" value="1"/>
+      <stack module="module.framework.sf_i2c_on_sf_i2c_v2.2094861099">
+        <stack module="module.framework.sf_i2c_bus_on_sf_i2c_v2.1031279253" requires="module.framework.sf_i2c_on_sf_i2c.requires.sf_i2c_bus_v2">
+          <stack module="module.driver.i2c_on_riic.1591928013" requires="module.framework.sf_i2c_on_sf_i2c.requires.i2c">
+            <stack module="module.driver.transfer_on_dtc.1858049561" requires="module.driver.i2c_on_riic.requires.transfer_tx"/>
+            <stack module="module.driver.transfer_on_dtc.659656648" requires="module.driver.i2c_on_riic.requires.transfer_rx"/>
+          </stack>
+        </stack>
+      </stack>
+      <stack module="module.framework.sf_external_irq_on_sf_external_irq.2001708694">
+        <stack module="module.driver.external_irq_on_icu.227811375" requires="module.framework.sf_external_irq_on_sf_external_irq.requires.external_irq"/>
+      </stack>
+      <object id="rtos.threadx.object.semaphore.429031842">
+        <property id="rtos.threadx.object.semaphore.name" value="Data Semaphore"/>
+        <property id="rtos.threadx.object.semaphore.symbol" value="g_data_semaphore"/>
         <property id="rtos.threadx.object.semaphore.count" value="0"/>
       </object>
     </context>
