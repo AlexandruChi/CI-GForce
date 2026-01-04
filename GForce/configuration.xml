@@ -730,7 +730,10 @@
     </component>
   </synergyComponentSelection>
   <synergyIcuConfiguration/>
-  <synergyMessagingConfiguration/>
+  <synergyMessagingConfiguration>
+    <subscriber context="rtos.threadx.thread.2139045283" end="0" id="subscriber.1382567593" start="0"/>
+    <subscriber context="rtos.threadx.thread.1057534971" end="0" id="subscriber.573164373" start="0"/>
+  </synergyMessagingConfiguration>
   <synergyModuleConfiguration>
     <module id="module.driver.cgc_on_cgc.0">
       <property id="module.driver.cgc.name" value="g_cgc"/>
@@ -1131,11 +1134,6 @@
         <property id="rtos.threadx.object.flags.name" value="New Event Flags"/>
         <property id="rtos.threadx.object.flags.symbol" value="g_touch_event_flags"/>
       </object>
-      <object id="rtos.threadx.object.semaphore.82626614">
-        <property id="rtos.threadx.object.semaphore.name" value="Tap Semaphore"/>
-        <property id="rtos.threadx.object.semaphore.symbol" value="g_tap_semaphore"/>
-        <property id="rtos.threadx.object.semaphore.count" value="0"/>
-      </object>
       <object id="rtos.threadx.object.mutex.226713432">
         <property id="rtos.threadx.object.mutex.name" value="Display Mutex"/>
         <property id="rtos.threadx.object.mutex.symbol" value="g_display_mutex"/>
@@ -1163,6 +1161,16 @@
       <object id="rtos.threadx.object.semaphore.429031842">
         <property id="rtos.threadx.object.semaphore.name" value="Data Semaphore"/>
         <property id="rtos.threadx.object.semaphore.symbol" value="g_data_semaphore"/>
+        <property id="rtos.threadx.object.semaphore.count" value="0"/>
+      </object>
+      <object id="rtos.threadx.object.mutex.1462033860">
+        <property id="rtos.threadx.object.mutex.name" value="Data Mutex"/>
+        <property id="rtos.threadx.object.mutex.symbol" value="g_data_mutex"/>
+        <property id="rtos.threadx.object.mutex.inherit" value="rtos.threadx.object.mutex.inherit.disabled"/>
+      </object>
+      <object id="rtos.threadx.object.semaphore.1930308168">
+        <property id="rtos.threadx.object.semaphore.name" value="Unit Semaphore"/>
+        <property id="rtos.threadx.object.semaphore.symbol" value="g_unit_semaphore"/>
         <property id="rtos.threadx.object.semaphore.count" value="0"/>
       </object>
     </context>

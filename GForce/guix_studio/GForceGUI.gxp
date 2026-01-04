@@ -447,7 +447,7 @@
 </resource>
 <resource>
 <type>COLOR</type>
-<name>G_HIGH</name>
+<name>G_MAX</name>
 <pathinfo>
 <pathtype>project_relative</pathtype>
 </pathinfo>
@@ -458,7 +458,7 @@
 </resource>
 <resource>
 <type>COLOR</type>
-<name>G_MEDIUM</name>
+<name>G_HIGH</name>
 <pathinfo>
 <pathtype>project_relative</pathtype>
 </pathinfo>
@@ -488,6 +488,28 @@
 <enabled>TRUE</enabled>
 <compress>FALSE</compress>
 <colorval>4288020735</colorval>
+</resource>
+<resource>
+<type>COLOR</type>
+<name>G_UNDEF</name>
+<pathinfo>
+<pathtype>project_relative</pathtype>
+</pathinfo>
+<is_default>FALSE</is_default>
+<enabled>TRUE</enabled>
+<compress>FALSE</compress>
+<colorval>4291348680</colorval>
+</resource>
+<resource>
+<type>COLOR</type>
+<name>G_ZERO</name>
+<pathinfo>
+<pathtype>project_relative</pathtype>
+</pathinfo>
+<is_default>FALSE</is_default>
+<enabled>TRUE</enabled>
+<compress>FALSE</compress>
+<colorval>4278241480</colorval>
 </resource>
 </resource>
 </resource>
@@ -2087,132 +2109,6 @@
 <enabled>TRUE</enabled>
 <compress>FALSE</compress>
 </resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
 </resource>
 <vscroll_appearance>
 <scroll_width>20</scroll_width>
@@ -2343,7 +2239,7 @@
 <style>1073741832</style>
 <allocation>0</allocation>
 <accepts_focus>TRUE</accepts_focus>
-<normal_fill_color>G_NORMAL</normal_fill_color>
+<normal_fill_color>G_UNDEF</normal_fill_color>
 <selected_fill_color>WINDOW_FILL</selected_fill_color>
 <disabled_fill_color>DISABLED_FILL</disabled_fill_color>
 <id_name>ID_AXIS_WINDOW</id_name>

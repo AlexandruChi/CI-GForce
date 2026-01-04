@@ -6,7 +6,7 @@
 /*  Studio User Guide, or visit our web site at azure.com/rtos                 */
 /*                                                                             */
 /*  GUIX Studio Revision 6.4.0.0                                               */
-/*  Date (dd.mm.yyyy): 30.12.2025   Time (hh:mm): 11:47                        */
+/*  Date (dd.mm.yyyy):  4. 1.2026   Time (hh:mm): 13:14                        */
 /*******************************************************************************/
 
 
@@ -35,11 +35,13 @@
 
 /* Color ID definitions                                                        */
 
-#define GX_COLOR_ID_G_HIGH 29
-#define GX_COLOR_ID_G_MEDIUM 30
+#define GX_COLOR_ID_G_MAX 29
+#define GX_COLOR_ID_G_HIGH 30
 #define GX_COLOR_ID_G_NORMAL 31
 #define GX_COLOR_ID_G_LOW 32
-#define DISPLAY_1_COLOR_TABLE_SIZE 33
+#define GX_COLOR_ID_G_UNDEF 33
+#define GX_COLOR_ID_G_ZERO 34
+#define DISPLAY_1_COLOR_TABLE_SIZE 35
 
 /* Font ID definitions                                                         */
 

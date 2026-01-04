@@ -58,6 +58,8 @@ const sf_i2c_cfg_t g_sf_i2c_device_sensor_cfg =
 const sf_i2c_instance_t g_sf_i2c_device_sensor =
 { .p_ctrl = &g_sf_i2c_device_sensor_ctrl, .p_cfg = &g_sf_i2c_device_sensor_cfg, .p_api = &g_sf_i2c_on_sf_i2c };
 TX_SEMAPHORE g_data_semaphore;
+TX_MUTEX g_data_mutex;
+TX_SEMAPHORE g_unit_semaphore;
 extern bool g_ssp_common_initialized;
 extern uint32_t g_ssp_common_thread_count;
 extern TX_SEMAPHORE g_ssp_common_initialized_semaphore;
@@ -73,6 +75,18 @@ void sensor_thread_create(void)
     if (TX_SUCCESS != err_g_data_semaphore)
     {
         tx_startup_err_callback (&g_data_semaphore, 0);
+    }
+    UINT err_g_data_mutex;
+    err_g_data_mutex = tx_mutex_create (&g_data_mutex, (CHAR*) "Data Mutex", TX_NO_INHERIT);
+    if (TX_SUCCESS != err_g_data_mutex)
+    {
+        tx_startup_err_callback (&g_data_mutex, 0);
+    }
+    UINT err_g_unit_semaphore;
+    err_g_unit_semaphore = tx_semaphore_create (&g_unit_semaphore, (CHAR*) "Unit Semaphore", 0);
+    if (TX_SUCCESS != err_g_unit_semaphore)
+    {
+        tx_startup_err_callback (&g_unit_semaphore, 0);
     }
 
     UINT err;

@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.4.0.0                                               */
-/*  Date (dd.mm.yyyy): 30.12.2025   Time (hh:mm): 11:47                        */
+/*  Date (dd.mm.yyyy):  4. 1.2026   Time (hh:mm): 13:14                        */
 /*******************************************************************************/
 
 
@@ -310,7 +310,7 @@ GX_CONST GX_STUDIO_WIDGET window1_axis_window_define =
     GX_STYLE_BORDER_THICK|GX_STYLE_ENABLED,   /* style flags                   */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_G_NORMAL,                    /* normal color id                */
+    GX_COLOR_ID_G_UNDEF,                     /* normal color id                */
     GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_window_create,                 /* create function                */

@@ -1,13 +1,48 @@
 #include "sensor_thread.h"
 #include "MPU6500.h"
+#include <math.h>
 #include "i2c.h"
+
+#include "sensor_data.h"
 
 #define I2C_TIMEOUT 10
 #define I2C_RETRIES 10
 
+#define WAIT_TIME 10
+
 ssp_err_t init_MPU6500(const sf_i2c_instance_t *device, uint32_t init_time);
 ssp_err_t check_MPU6500(const sf_i2c_instance_t *device, uint8_t *new_data);
 ssp_err_t read_data_MPU6500(const sf_i2c_instance_t *device, double *data);
+
+#define STATE_WAIT 0
+#define STATE_CHECK 1
+#define STATE_READ 2
+#define STATE_WRITE 3
+#define STATE_CHANGE_UNIT 4
+#define STATE_ERROR ((uint8_t)-1)
+
+sensor_data_t sensor_data;
+
+#define G_TO_M 9.80665
+
+#define LIMIT_ZERO 0.25
+#define LIMIT_LOW 0.75
+#define LIMIT_NORMAL 1.25
+#define LIMIT_HIGH 1.75
+
+#define DEFAULT_UNIT UNIT_M
+
+TX_SEMAPHORE* get_data_semaphore() {
+    return &g_data_semaphore;
+}
+
+TX_SEMAPHORE* get_unit_semaphore() {
+    return &g_unit_semaphore;
+}
+
+TX_MUTEX* get_data_mutex() {
+    return &g_data_mutex;
+}
 
 void sensor_thread_entry(void) {
     ssp_err_t ret = SSP_SUCCESS;
@@ -24,25 +59,122 @@ void sensor_thread_entry(void) {
         while(1);
     }
 
+    uint8_t unit = DEFAULT_UNIT;
     uint8_t new_data;
     double data[3];
 
+    uint8_t state = STATE_WAIT;
+
     while (1) {
-        g_sf_external_irq_sensor.p_api->wait(g_sf_external_irq_sensor.p_ctrl, TX_WAIT_FOREVER);
+        switch (state) {
+            case STATE_WAIT:
+                if (SSP_SUCCESS == g_sf_external_irq_sensor.p_api->wait(g_sf_external_irq_sensor.p_ctrl, WAIT_TIME)) {
+                    state = STATE_CHECK;
+                }
 
-        if (SSP_SUCCESS != (ret = check_MPU6500(&g_sf_i2c_device_sensor, &new_data))) {
-            while(1);
+                if (!tx_semaphore_get(&g_unit_semaphore, WAIT_TIME)) {
+                    state = STATE_CHANGE_UNIT;
+                }
+
+                break;
+
+            case STATE_CHECK:
+                if (SSP_SUCCESS != (ret = check_MPU6500(&g_sf_i2c_device_sensor, &new_data))) {
+                    state = STATE_ERROR;
+                    break;
+                }
+
+                if (new_data) {
+                    state = STATE_READ;
+                    break;
+                }
+
+                state = STATE_WAIT;
+                break;
+
+            case STATE_READ:
+                if (SSP_SUCCESS != (ret = read_data_MPU6500(&g_sf_i2c_device_sensor, data))) {
+                    state = STATE_ERROR;
+                    break;
+                }
+
+                state = STATE_WRITE;
+                break;
+
+            case STATE_WRITE:
+                tx_mutex_get(&g_data_mutex, TX_WAIT_FOREVER);
+
+                sensor_data.axis.x = data[0];
+                sensor_data.axis.y = data[1];
+                sensor_data.axis.z = data[2];
+
+                sensor_data.accel = sqrt(
+                        sensor_data.axis.x * sensor_data.axis.x +
+                        sensor_data.axis.y * sensor_data.axis.y +
+                        sensor_data.axis.z * sensor_data.axis.z
+                );
+
+                if (sensor_data.accel > LIMIT_HIGH) {
+                     sensor_data.level = LEVEL_MAX;
+                } else if (sensor_data.accel > LIMIT_NORMAL) {
+                    sensor_data.level = LEVEL_HIGH;
+                } else if (sensor_data.accel > LIMIT_LOW) {
+                    sensor_data.level = LEVEL_NORMAL;
+                } else if (sensor_data.accel > LIMIT_ZERO){
+                    sensor_data.level  = LEVEL_LOW;
+                } else {
+                    sensor_data.level = LEVEL_ZERO;
+                }
+
+                sensor_data.unit = unit;
+                switch (sensor_data.unit) {
+                    case UNIT_M:
+
+                        sensor_data.accel *= G_TO_M;
+                        sensor_data.axis.x *= G_TO_M;
+                        sensor_data.axis.y *= G_TO_M;
+                        sensor_data.axis.z *= G_TO_M;
+
+                        break;
+
+                    case UNIT_G:
+                        break;
+
+                    default:
+                        break;
+                }
+
+                tx_mutex_put(&g_data_mutex);
+                tx_semaphore_ceiling_put(&g_data_semaphore, 1);
+                state = STATE_WAIT;
+                break;
+
+            case STATE_CHANGE_UNIT:
+                switch (unit) {
+                    case UNIT_M:
+                        unit  = UNIT_G;
+                        break;
+
+                    case UNIT_G:
+                        unit = UNIT_M;
+                        break;
+
+                    default:
+                        unit = UNIT_M;
+                        break;
+                }
+
+                state = STATE_WRITE;
+                break;
+
+            case STATE_ERROR:
+                state = STATE_WAIT;
+                break;
+
+            default:
+                state = STATE_WAIT;
+                break;
         }
-
-        if (new_data) {
-            if (SSP_SUCCESS != (ret = read_data_MPU6500(&g_sf_i2c_device_sensor, data))) {
-                while(1);
-            }
-
-            __NOP();
-        }
-
-        __NOP();
     }
 }
 

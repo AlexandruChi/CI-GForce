@@ -27,6 +27,8 @@ extern const sf_external_irq_instance_t g_sf_external_irq_sensor;
 /* SF I2C on SF I2C Instance. */
 extern const sf_i2c_instance_t g_sf_i2c_device_sensor;
 extern TX_SEMAPHORE g_data_semaphore;
+extern TX_MUTEX g_data_mutex;
+extern TX_SEMAPHORE g_unit_semaphore;
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

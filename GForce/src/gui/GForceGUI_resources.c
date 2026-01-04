@@ -6,7 +6,7 @@
 /*  Studio User Guide, or visit our web site at azure.com/rtos                 */
 /*                                                                             */
 /*  GUIX Studio Revision 6.4.0.0                                               */
-/*  Date (dd.mm.yyyy): 30.12.2025   Time (hh:mm): 11:47                        */
+/*  Date (dd.mm.yyyy):  4. 1.2026   Time (hh:mm): 13:14                        */
 /*******************************************************************************/
 
 
@@ -49,7 +49,9 @@ GX_CONST GX_COLOR display_1_theme_1_color_table[] =
     0x0000f800,
     0x0000fca0,
     0x00000560,
-    0x0000901f
+    0x0000901f,
+    0x0000ce59,
+    0x00000659
 };
 
 
@@ -7574,7 +7576,7 @@ GX_THEME display_1_theme_1 =
     },
     GX_SCROLLBAR_RELATIVE_THUMB|GX_SCROLLBAR_END_BUTTONS|GX_SCROLLBAR_VERTICAL,
     GX_SCROLLBAR_RELATIVE_THUMB|GX_SCROLLBAR_END_BUTTONS|GX_SCROLLBAR_HORIZONTAL,
-    33,                                      /* color table size               */
+    35,                                      /* color table size               */
     9,                                       /* font table size                */
     5,                                       /* pixelmap table size            */
     0                                        /* palette size                   */

@@ -833,11 +833,6 @@ Synergy Configuration
       Name: New Event Flags
       Symbol: g_touch_event_flags
       
-    Object "g_tap_semaphore Semaphore"
-      Name: Tap Semaphore
-      Symbol: g_tap_semaphore
-      Initial count: 0
-      
     Object "g_display_mutex Mutex"
       Name: Display Mutex
       Symbol: g_display_mutex
@@ -926,4 +921,18 @@ Synergy Configuration
       Symbol: g_data_semaphore
       Initial count: 0
       
+    Object "g_data_mutex Mutex"
+      Name: Data Mutex
+      Symbol: g_data_mutex
+      Priority inheritance: Disabled
+      
+    Object "g_unit_semaphore Semaphore"
+      Name: Unit Semaphore
+      Symbol: g_unit_semaphore
+      Initial count: 0
+      
   Messaging
+    Subscriber "Display Thread" 0 0
+      
+    Subscriber "Sensor Thread" 0 0
+      

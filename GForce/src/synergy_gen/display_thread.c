@@ -173,7 +173,6 @@ void sf_touch_panel_v2_init(void)
 }
 TX_SEMAPHORE g_display_semaphore_lcdc;
 TX_EVENT_FLAGS_GROUP g_touch_event_flags;
-TX_SEMAPHORE g_tap_semaphore;
 TX_MUTEX g_display_mutex;
 extern bool g_ssp_common_initialized;
 extern uint32_t g_ssp_common_thread_count;
@@ -196,12 +195,6 @@ void display_thread_create(void)
     if (TX_SUCCESS != err_g_touch_event_flags)
     {
         tx_startup_err_callback (&g_touch_event_flags, 0);
-    }
-    UINT err_g_tap_semaphore;
-    err_g_tap_semaphore = tx_semaphore_create (&g_tap_semaphore, (CHAR*) "Tap Semaphore", 0);
-    if (TX_SUCCESS != err_g_tap_semaphore)
-    {
-        tx_startup_err_callback (&g_tap_semaphore, 0);
     }
     UINT err_g_display_mutex;
     err_g_display_mutex = tx_mutex_create (&g_display_mutex, (CHAR*) "Display Mutex", TX_NO_INHERIT);
