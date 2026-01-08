@@ -205,7 +205,7 @@ void display_thread_create(void)
 
     UINT err;
     err = tx_thread_create (&display_thread, (CHAR*) "Display Thread", display_thread_func, (ULONG) NULL,
-                            &display_thread_stack, 2048, 6, 6, 10, TX_AUTO_START);
+                            &display_thread_stack, 2048, 1, 1, 10, TX_AUTO_START);
     if (TX_SUCCESS != err)
     {
         tx_startup_err_callback (&display_thread, 0);

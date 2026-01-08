@@ -1,14 +1,15 @@
 #include "sensor_thread.h"
 #include "MPU6500.h"
 #include <math.h>
+#include <stdio.h>
 #include "i2c.h"
 
 #include "sensor_data.h"
 
-#define I2C_TIMEOUT 10
-#define I2C_RETRIES 10
+#define I2C_TIMEOUT 100
+#define I2C_RETRIES 100
 
-#define WAIT_TIME 10
+#define WAIT_TIME 1
 
 ssp_err_t init_MPU6500(const sf_i2c_instance_t *device, uint32_t init_time);
 ssp_err_t check_MPU6500(const sf_i2c_instance_t *device, uint8_t *new_data);
@@ -40,12 +41,29 @@ TX_SEMAPHORE* get_unit_semaphore() {
     return &g_unit_semaphore;
 }
 
+TX_SEMAPHORE* get_time_semaphore() {
+    return &g_time_semaphore;
+}
+
 TX_MUTEX* get_data_mutex() {
     return &g_data_mutex;
 }
 
 void sensor_thread_entry(void) {
     ssp_err_t ret = SSP_SUCCESS;
+
+    volatile uint32_t time_cy;
+    volatile float time_us = 0;
+    time_us++;
+
+    // wait for the other thread to start
+    tx_thread_sleep(100);
+
+    tx_semaphore_ceiling_put(&g_time_semaphore, 1);
+    tx_thread_relinquish();
+    time_cy = DWT->CYCCNT;
+    time_us = (float)time_cy / 240;
+    __NOP();
 
     if (SSP_SUCCESS != (ret = g_sf_i2c_device_sensor.p_api->open(g_sf_i2c_device_sensor.p_ctrl, g_sf_i2c_device_sensor.p_cfg))) {
         while(1);
@@ -70,10 +88,12 @@ void sensor_thread_entry(void) {
             case STATE_WAIT:
                 if (SSP_SUCCESS == g_sf_external_irq_sensor.p_api->wait(g_sf_external_irq_sensor.p_ctrl, WAIT_TIME)) {
                     state = STATE_CHECK;
+                    break;
                 }
 
                 if (!tx_semaphore_get(&g_unit_semaphore, WAIT_TIME)) {
                     state = STATE_CHANGE_UNIT;
+                    break;
                 }
 
                 break;
@@ -146,6 +166,7 @@ void sensor_thread_entry(void) {
 
                 tx_mutex_put(&g_data_mutex);
                 tx_semaphore_ceiling_put(&g_data_semaphore, 1);
+
                 state = STATE_WAIT;
                 break;
 
@@ -202,6 +223,8 @@ ssp_err_t init_MPU6500(const sf_i2c_instance_t *device, uint32_t init_time) {
         device->p_api->lockWait(g_sf_i2c_device_sensor.p_ctrl, TX_WAIT_FOREVER);
         ret = i2c_write_register(device, PWR_MGMT_1, 1 << TEMP_DIS, I2C_TIMEOUT);
         ret = i2c_write_register(device, PWR_MGMT_2, 1 << DISABLE_XG | 1 << DISABLE_YG | 1 << DISABLE_ZG, I2C_TIMEOUT);
+        ret = i2c_write_register(device, CONFIG, 1 << DLPF_CFG, I2C_TIMEOUT);
+        ret = i2c_write_register(device, SMPLRT_DIV, 99, I2C_TIMEOUT);
         ret = i2c_write_register(device, INT_ENABLE, 1 << RAW_RDY_EN, I2C_TIMEOUT);
         device->p_api->unlock(g_sf_i2c_device_sensor.p_ctrl);
         if (SSP_SUCCESS != ret) {

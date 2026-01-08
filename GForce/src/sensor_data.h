@@ -19,6 +19,7 @@
 
 TX_SEMAPHORE* get_data_semaphore();
 TX_SEMAPHORE* get_unit_semaphore();
+TX_SEMAPHORE* get_time_semaphore();
 TX_MUTEX* get_data_mutex();
 
 typedef struct {

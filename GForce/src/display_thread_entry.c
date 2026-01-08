@@ -23,6 +23,12 @@ extern sensor_data_t sensor_data;
 sensor_data_t local_sensor_data;
 
 void display_thread_entry(void) {
+    /* Measure context change time */
+
+    tx_semaphore_get(get_time_semaphore(), TX_WAIT_FOREVER);
+    DWT->CYCCNT = 0;
+    tx_thread_relinquish();
+
     /* Initialises GUIX. */
     if (TX_SUCCESS != gx_system_initialize()) {
         while(1);

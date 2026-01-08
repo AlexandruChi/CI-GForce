@@ -60,6 +60,7 @@ const sf_i2c_instance_t g_sf_i2c_device_sensor =
 TX_SEMAPHORE g_data_semaphore;
 TX_MUTEX g_data_mutex;
 TX_SEMAPHORE g_unit_semaphore;
+TX_SEMAPHORE g_time_semaphore;
 extern bool g_ssp_common_initialized;
 extern uint32_t g_ssp_common_thread_count;
 extern TX_SEMAPHORE g_ssp_common_initialized_semaphore;
@@ -87,6 +88,12 @@ void sensor_thread_create(void)
     if (TX_SUCCESS != err_g_unit_semaphore)
     {
         tx_startup_err_callback (&g_unit_semaphore, 0);
+    }
+    UINT err_g_time_semaphore;
+    err_g_time_semaphore = tx_semaphore_create (&g_time_semaphore, (CHAR*) "Time Semaphore", 0);
+    if (TX_SUCCESS != err_g_time_semaphore)
+    {
+        tx_startup_err_callback (&g_time_semaphore, 0);
     }
 
     UINT err;

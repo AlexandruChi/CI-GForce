@@ -503,7 +503,7 @@ Synergy Configuration
     Symbol: display_thread
     Name: Display Thread
     Stack size (bytes): 2048
-    Priority: 6
+    Priority: 1
     Auto start: Enabled
     Time slicing interval (ticks): 10
     
@@ -929,6 +929,11 @@ Synergy Configuration
     Object "g_unit_semaphore Semaphore"
       Name: Unit Semaphore
       Symbol: g_unit_semaphore
+      Initial count: 0
+      
+    Object "g_time_semaphore Semaphore"
+      Name: Time Semaphore
+      Symbol: g_time_semaphore
       Initial count: 0
       
   Messaging
